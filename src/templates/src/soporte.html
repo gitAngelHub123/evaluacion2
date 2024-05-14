@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
+    <title>web service</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'index' %}">
+            <img src="{% static 'empresa.png' %}" alt="error">
+        </a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="{% url 'src:index' %}">inicio</a></li>
+                <li><a href="#">precios</a></li>
+                <li><a href="{% url 'src:convertidor' %}">Convertidor</a></li>
+                <li><a href="{% url 'src:soporte' %}">soporte</a></li>
+            </ul>
+        </nav>
+        {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" class="btn">
+        {% csrf_token %}
+        <a href="{% url 'src:index' %}">
+        <button type="submit">Cerrar sesión</button>
+        </a>
+        </form>
+        {% else %}
+        <a href="{% url 'src:iniciarsesion' %}" class="btn"><button>iniciar sesion</button></a>
+        <a href="{% url 'src:registro' %}" class="btn"><button>Registrarse</button></a>
+        {% endif %}
+    </header>
+
+    <div class="container">
+        <h1>Describa su consulta</h1>
+        <div class="form_registro">
+            <form action="{% url 'src:soporte' %}" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+            <button class="form_registro_button" id="miBotonSoporte">enviar</button>
+    
+    <script src="{% static 'java.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

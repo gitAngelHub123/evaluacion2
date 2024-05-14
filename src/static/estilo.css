@@ -1,0 +1,185 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+}
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+    padding-top: 30px;
+}
+
+.imagen1 {
+    height: 200px;
+    width: 200px;
+}
+
+.pantalla1{
+    background-color: blue;
+}
+
+.container4{
+    display: flex;
+    justify-content: center;
+}
+
+.row1 {
+    display: flex;
+}
+
+.columna-naranja {
+    flex: 1;
+    background-color: orange;
+}
+
+.columna-blanca {
+    flex: 1;
+    background-color: white;
+}
+
+body {
+background-color: #fff59d;
+}
+
+.header{
+    background-color: #1b3039;
+    align-items: center;
+    padding: 5px 10%;
+    display: flex;
+    justify-content: space-between;
+    height: 90px;
+}
+
+.header .logo{
+    cursor: pointer;
+}
+
+.header .logo img{
+    height: 40px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.header .logo img:hover{
+    transform: scale(2,2);
+}
+
+.header .nav-links{
+    list-style: none;
+}
+
+.header .nav-links li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.header .nav-links li:hover{
+    transform: scale(1.1,1.1);
+}
+
+.header .nav-links a{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.header .nav-links li a:hover{
+    color: orange;
+}
+
+.header .btn button{
+    font-weight: 700;
+    color: black;
+    padding: 9px 25px;
+    background: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0,3s ease 0s;
+}
+
+.header .btn button:hover{
+    background-color: orange;
+    color: white;
+    transform: scale(1.1,1.1);
+}
+
+.content {
+    padding: 20px;
+}
+
+.signup {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 10px; /* Espacio entre los enlaces */
+}
+
+
+.iniciosesion_index{
+    margin-left: 20px;
+}
+
+.nav-registrarse{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.registrarse_index{
+    margin-left: 20px;
+}
+
+.titulo_registrarse_registro{
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+}
+
+.form_registro{
+    width: 500px; /* Ancho del formulario */
+    padding: 50px;
+    padding-top: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-left: 50px;
+}
+
+.form_registro_button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    background-color: #007bff; /* Color del botón */
+    color: #fff; /* Color del texto */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form_registro_button:hover {
+    background-color: #0069d9; /* Color del botón al pasar el ratón */
+    transform: scale(1.1,1.1);
+}
+
+.moneda{
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.producto-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.producto {
+    width: 50%; /* Ajusta el ancho según tu diseño */
+    margin-bottom: 20px; /* Añade un margen inferior para separar los productos */
+}
