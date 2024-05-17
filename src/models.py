@@ -48,7 +48,7 @@ class product(models.Model):
         return f'{self.name} -> {self.price}'
     
     class Meta:
-        db_table = 'products'
+        db_table = 'productoss'
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
         ordering = ['id']

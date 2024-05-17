@@ -9,6 +9,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import tareaform
 from src.Carrito import Carrito
+from django.conf import settings
+import uuid
+from paypal.standard.forms import PayPalPaymentsForm
+
 
 class ProgrammerViewSet(viewsets.ModelViewSet):
     queryset = Programmer.objects.all()
@@ -16,26 +20,26 @@ class ProgrammerViewSet(viewsets.ModelViewSet):
 
 @login_required
 def index(request):
-    productos = product.objects.all()
+    productoss = product.objects.all()
     carrito = Carrito(request)
-    return render(request, 'src/index.html', {'productos': productos, 'carrito': carrito})
+    return render(request, 'src/index.html', {'productoss': productoss, 'carrito': carrito})
 
 def agregar_producto(request, product_id):
     carrito = Carrito(request)
-    producto = product.objects.get(id=product_id)
-    carrito.add(producto)
+    productoss = product.objects.get(id=product_id)
+    carrito.add(productoss)
     return redirect("src:index")
 
 def eliminar_producto(request, product_id):
     carrito = Carrito(request)
-    producto = product.objects.get(id=product_id)
-    carrito.remove(producto)
+    productoss = product.objects.get(id=product_id)
+    carrito.remove(productoss)
     return redirect("src:index")
 
 def restar_producto(request, product_id):
     carrito = Carrito(request)
-    producto = product.objects.get(id=product_id)
-    carrito.restar(producto)
+    productoss = product.objects.get(id=product_id)
+    carrito.restar(productoss)
     return redirect("src:index")
 
 def limpiar_carrito(request):
@@ -114,3 +118,39 @@ def soporte(request):
                 'form': tareaform,
                 'error': 'inserte algun dato'
                 })
+            
+def CheckOut(request, product_id):
+    productoss = product.objects.get(id=product_id)
+    host = request.get_host()
+
+    paypal_checkout = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': productoss.price,
+        'item_name': productoss.name,
+        'invoice': uuid.uuid4(),
+        'currency_code': 'USD',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}/",
+        'return_url': f"http://{host}{reverse('payment-success', kwargs={'product_id': productoss.id})}",
+        'cancel_url': f"http://{host}{reverse('payment-failed', kwargs={'product_id': productoss.id})}",
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+    context = {
+        'productoss': productoss,
+        'paypal': paypal_payment
+    }
+
+    return render(request, 'src/checkout.html', context)
+
+def PaymentSuccessful(request, product_id):
+    
+    productoss = product.objects.get(id=product_id)
+
+    return render(request, 'src/payment-success.html', {'productoss': productoss})
+
+def paymentFailed(request, product_id):
+
+    productoss = product.objects.get(id=product_id)
+
+    return render(request, 'src/payment-failed.html', {'productoss': productoss})

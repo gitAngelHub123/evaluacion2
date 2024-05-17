@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .img {
+            width: 80%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-purchase {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-purchase:hover {
+            background-color: #007acc;
+        }
+        /* Estilos CSS */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <center>
+            <h1 style="margin-top: 100px;">Verificar Producto: {{ productoss.name }}</h1>
+        </center>
+        <div class="product-container">
+            <div class="product">
+                <img class="img" src="{{ productoss.image.url }}" alt="">
+                <p><strong>Nombre: {{ productoss.name }}</strong></p>
+                <p>Precio: ${{ productoss.price }}</p>
+                <p>Marca: {{ productoss.category }}</p>
+                <p>Descripción: {{ productoss.detail }}</p>
+                <form action="{% url 'payment-success' productoss.id %}" method="post">
+                    {% csrf_token %}
+                    {{ paypal.render }}
+                    <button class="btn-purchase" type="submit">Pagar con PayPal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
